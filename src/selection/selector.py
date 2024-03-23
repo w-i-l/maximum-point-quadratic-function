@@ -1,15 +1,16 @@
-from cromozom import Cromozom
+from cromosome import Cromosome
+from src.codification.coder import Coder
 from numpy import random
 
 class Selector:
     def __init__(
             self: object, 
-            population: list[Cromozom]
+            population: list[Cromosome],
         ):
         self.population = population
         self.intervals = self.__get_probability_intervals()
 
-    def select(self: object) -> list[Cromozom]:
+    def select(self: object) -> list[Cromosome]:
         selected = []
         for index, interval in enumerate(self.intervals):
             print(f'Interval {index}: {interval}')
@@ -20,7 +21,7 @@ class Selector:
     def __get_total_fitness(self: object) -> float:
         return sum([c.fitness for c in self.population])
 
-    def __get_probability_for_cromozom(self: object, c: Cromozom) -> float:
+    def __get_probability_for_cromozom(self: object, c: Cromosome) -> float:
         return c.fitness / self.__get_total_fitness()
 
     def __get_probability_intervals(self: object) -> list[float]:
@@ -40,7 +41,7 @@ class Selector:
         print(f'Number {number} not in any interval')
         return -1
         
-    def __select_cromozom(self: object) -> Cromozom:
+    def __select_cromozom(self: object) -> Cromosome:
         number = self.__generate_random_number()
         index = self.__get_index_of_interval(number)
         print(f'Selected index: {index}')
