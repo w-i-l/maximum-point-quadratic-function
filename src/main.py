@@ -6,36 +6,19 @@ from src.codification import coder
 from src.selection.selector import Selector
 from src.combination.combination import Combinator
 from src.mutation.mutation import Mutator
+import random
 
 if __name__ == '__main__':
-    values = [
-        -0.914592,
-        -0.516787,
-        -0.246207,
-        1.480791,
-        0.835307,
-        1.229633,
-        0.133068,
-        -0.897179,
-        0.100578,
-        -0.311975,
-        1.411980,
-        0.404924,
-        1.954865,
-        0.359503,
-        1.255452,
-        1.124764,
-        1.527482,
-        1.573845,
-        -0.562311,
-        1.191435
-    ]
+    population_size = 20
+    generations = 50
     lower_bound = -1
     upper_bound = 2
     precision = 6
     f = lambda x: -(x ** 2) + x + 2
     combination_rate = 0.25
-    mutation_rate = 0.1
+    mutation_rate = 0.01
+
+    values = [round(random.uniform(lower_bound, upper_bound), precision) for _ in range(population_size)]
     coder = coder.Coder(lower_bound, upper_bound, precision)
     binaries = [coder.encoder.encode(x)for x in values]
     fitnesses = [f(x) for x in values]
@@ -46,30 +29,39 @@ if __name__ == '__main__':
     combinator = Combinator(population, combination_rate)
     mutator = Mutator(population, mutation_rate)
 
-    print('Initial population:')
+    SEPARATOR = '----------------------------------------\n'
+
+    print('Initial population:\n')
     for c in population:
         c.show()
-    
-    selected = selector.select()
+    print(SEPARATOR)
 
-    print('\nSelected population:')
-    for c in selected:
+    population = selector.select()
+    print('\nSelected population:\n')
+    for c in population:
         c.show()
-    population = selected
+    print(SEPARATOR)
 
-    print(f'Combination rate: {combination_rate}')
+    print(f'Combination rate: {combination_rate}\n')
     population = combinator.combine()
 
-    print('\nAfter combination:')
+    print('\nAfter combination:\n')
     for c in population:
         c.show()
+    print(SEPARATOR)
 
-    print(f'Mutation rate: {mutation_rate}')
+    print(f'Mutation rate: {mutation_rate}\n')
     population = mutator.mutate()
 
-    print('\nAfter mutation:')
+    print('\nAfter mutation:\n')
     for c in population:
         c.show()
+    print(SEPARATOR)
+
+    coder.should_print = False
+    selector.should_print = False
+    combinator.should_print = False
+    mutator.should_print = False
 
     print('\n\n\n')
     for i in range(49):

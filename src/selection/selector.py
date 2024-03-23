@@ -13,11 +13,12 @@ class Selector(BaseClass):
         super().__init__()
 
     def select(self: object) -> list[Cromosome]:
-        selected = []
+        selected = [self.__get_the_best_cromozom()]
         if self.should_print:
-            print('Intervals:')
-            for index, interval in enumerate(self.intervals):
-                print(f'Interval {index}: {interval}')
+            self.__print_cromosomes_probabilities()
+            print()
+            self.__print_intervals()
+            print()
         while len(selected) < len(self.population):
             selected.append(self.__select_cromozom())
         return selected
@@ -48,6 +49,18 @@ class Selector(BaseClass):
         number = self.__generate_random_number()
         index = self.__get_index_of_interval(number)
         if self.should_print:
-            print(f'Selected index: {index}')
+            print(f'u= {number} selected {self.population[index]}')
         return self.population[index]
 
+    def __print_cromosomes_probabilities(self: object):
+        print('Selection probabilities:')
+        for c in self.population:
+            print(f'Probability for {c}: {self.__get_probability_for_cromozom(c)}')
+    
+    def __print_intervals(self: object):
+        print('Intervals:')
+        for i in range(len(self.intervals) - 1):
+            print(f'Interval {i}: {self.intervals[i]} - {self.intervals[i + 1]}')
+
+    def __get_the_best_cromozom(self: object) -> Cromosome:
+        return max(self.population, key=lambda c: c.fitness)

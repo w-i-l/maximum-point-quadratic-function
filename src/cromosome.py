@@ -34,14 +34,12 @@ class Cromosome(BaseClass):
         return f'{self.id}'
     
     def show(self: object):
-        print(f'{self.id}: {self.value} x= {self.binary} f={self.fitness}')
+        print(f'{self.id:<3} {self.value:<10} x={self.binary:<30} f={self.fitness:<10}')
 
     def update_value(self: object, value: float) -> None:
         self.value = value
         self.binary = Cromosome.__CODER.encoder.encode(value)
         self.fitness = Cromosome.__FUNCTION(value)
-        if self.should_print:
-            print(f'Updated value for {self.id}')
     
     def update_binary(self: object, binary: str) -> None:
         self.binary = binary
@@ -49,5 +47,3 @@ class Cromosome(BaseClass):
         value = round(value, Cromosome.__CODER.precision)
         self.value = value
         self.fitness = Cromosome.__FUNCTION(self.value)
-        if self.should_print:
-            print(f'Updated binary for {self.id}')

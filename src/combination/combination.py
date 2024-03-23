@@ -26,6 +26,7 @@ class Combinator(BaseClass):
         c2.update_binary(new_c2)
         if self.should_print:
             print(f'Combined {c1.id} with {c2.id} at point {point}')
+            print(f'Result: {new_c1} {new_c2}')
 
     def __get_cromosomes_for_combination(self: object) -> list[Cromosome]:
         return [c for c in self.population if self.__should_combine()]
@@ -48,4 +49,3 @@ class Combinator(BaseClass):
             second = cromosomes.pop()
             result.append((first, second))
         return result
-

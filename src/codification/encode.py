@@ -13,13 +13,10 @@ class Encode(BaseClass):
         self.upper_bound = upper_bound            
         self.precision = precision
         super().__init__()
-        print(self.should_print)
 
     def encode(self: object, number: float) -> str:
         interval_lower_bound = self.__get_interval_lower_bound(number)
         binary = self.__convert_to_binary(interval_lower_bound)
-        if self.should_print:
-            print(f'INTERVAL {interval_lower_bound} Encoded {number} to {binary}')
         return binary
 
     def __get_bin_length(self: object):

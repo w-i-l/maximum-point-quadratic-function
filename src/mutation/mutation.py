@@ -15,6 +15,8 @@ class Mutator(BaseClass):
     def mutate(self: object) -> list[Cromosome]:
         for c in self.population:
             if self.__should_mutate():
+                if self.should_print:
+                    print(f'Mutating {c.id}')
                 self.__mutate_cromozom(c)
         return self.population
     
