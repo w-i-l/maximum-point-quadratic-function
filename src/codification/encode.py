@@ -1,6 +1,7 @@
 from math import log2, ceil, floor
+from src.base_class import BaseClass
 
-class Encode:
+class Encode(BaseClass):
 
     def __init__(
             self: object, 
@@ -11,11 +12,14 @@ class Encode:
         self.lower_bound = lower_bound
         self.upper_bound = upper_bound            
         self.precision = precision
+        super().__init__()
+        print(self.should_print)
 
     def encode(self: object, number: float) -> str:
         interval_lower_bound = self.__get_interval_lower_bound(number)
         binary = self.__convert_to_binary(interval_lower_bound)
-        print(f'INTERVAL {interval_lower_bound} Encoded {number} to {binary}')
+        if self.should_print:
+            print(f'INTERVAL {interval_lower_bound} Encoded {number} to {binary}')
         return binary
 
     def __get_bin_length(self: object):

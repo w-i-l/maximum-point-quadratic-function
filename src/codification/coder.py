@@ -1,18 +1,24 @@
 from src.codification.encode import Encode
 from src.codification.decode import Decode
+from src.base_class import BaseClass
 
-class Coder(Encode, Decode):
+class Coder():
     def __init__(
             self: object, 
             lower_bound: float,
             upper_bound: float, 
             precision: int
         ):
-        Encode.__init__(self, lower_bound, upper_bound, precision)
-        Decode.__init__(self, lower_bound, upper_bound, precision)
-        print(f'Coder initialized with lower_bound={lower_bound}, upper_bound={upper_bound}, precision={precision}')
-        print(f'Discretization step: {self._Encode__get_discretization_step()}')
-        print(f'Binary length: {self._Encode__get_bin_length()}')
+        self.encoder = Encode(lower_bound, upper_bound, precision)
+        self.decoder = Decode(lower_bound, upper_bound, precision)
+        self.lower_bound = lower_bound
+        self.upper_bound = upper_bound
+        self.precision = precision
+    
+    def set_print(self: object, should_print: bool) -> None:
+        self.encoder.should_print = should_print
+        self.decoder.should_print = should_print
+
 
 # lower_bound = 0
 # upper_bound = 1

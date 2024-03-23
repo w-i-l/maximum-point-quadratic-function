@@ -1,6 +1,7 @@
 from math import log2, ceil
+from src.base_class import BaseClass
 
-class Decode:
+class Decode(BaseClass):
     def __init__(
             self: object, 
             lower_bound: float,

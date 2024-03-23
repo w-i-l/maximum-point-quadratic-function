@@ -5,6 +5,7 @@ from src.cromosome import Cromosome
 from src.codification import coder
 from src.selection.selector import Selector
 from src.combination.combination import Combination
+from src.mutation.mutation import Mutation
 
 if __name__ == '__main__':
     values = [
@@ -34,18 +35,21 @@ if __name__ == '__main__':
     precision = 6
     f = lambda x: -(x ** 2) + x + 2
     combination_rate = 0.25
-    mutation_rate = 0.01
+    mutation_rate = 0.1
     coder = coder.Coder(lower_bound, upper_bound, precision)
-    binaries = [coder.encode(x)for x in values]
+    binaries = [coder.encoder.encode(x)for x in values]
     fitnesses = [f(x) for x in values]
     Cromosome.init(coder, f)
     population = [Cromosome(values[i], binaries[i], fitnesses[i]) for i in range(len(values))]
+
+    selector = Selector(population)
+    combinator = Combination(population, combination_rate)
+    mutator = Mutation(population, mutation_rate)
 
     print('Initial population:')
     for c in population:
         c.show()
     
-    selector = Selector(population)
     selected = selector.select()
 
     print('\nSelected population:')
@@ -54,9 +58,22 @@ if __name__ == '__main__':
     population = selected
 
     print(f'Combination rate: {combination_rate}')
-    combinator = Combination(population, combination_rate)
     population = combinator.combine()
 
     print('\nAfter combination:')
     for c in population:
         c.show()
+
+    print(f'Mutation rate: {mutation_rate}')
+    population = mutator.mutate()
+
+    print('\nAfter mutation:')
+    for c in population:
+        c.show()
+
+    print('\n\n\n')
+    for i in range(49):
+        selected = selector.select()
+        population = combinator.combine()
+        population = mutator.mutate()
+        print(max([c.fitness for c in population]))

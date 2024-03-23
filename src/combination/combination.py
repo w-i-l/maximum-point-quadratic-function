@@ -1,8 +1,9 @@
 from src.cromosome import Cromosome
 from numpy import random
+from src.base_class import BaseClass
 import random
 
-class Combination:
+class Combination(BaseClass):
     def __init__(
         self: object,
         population: list[Cromosome],
@@ -10,6 +11,7 @@ class Combination:
     ):
         self.population = population
         self.combination_rate = combination_rate
+        super().__init__()
 
     def combine(self: object) -> list[Cromosome]:
         for c1, c2 in self.__get_possible_combinations():
@@ -22,7 +24,8 @@ class Combination:
         new_c2 = c2.binary[:point] + c1.binary[point:]
         c1.update_binary(new_c1)
         c2.update_binary(new_c2)
-        print(f'Combined {c1.id} with {c2.id} at point {point}')
+        if self.should_print:
+            print(f'Combined {c1.id} with {c2.id} at point {point}')
 
     def __get_cromosomes_for_combination(self: object) -> list[Cromosome]:
         return [c for c in self.population if self.__should_combine()]

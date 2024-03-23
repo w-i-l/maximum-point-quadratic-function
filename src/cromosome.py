@@ -1,6 +1,7 @@
 from src.codification.coder import Coder
+from src.base_class import BaseClass
 
-class Cromosome:
+class Cromosome(BaseClass):
     __STATIC_ID = 0
     __CODER = None
     __FUNCTION = None
@@ -24,6 +25,7 @@ class Cromosome:
         self.fitness = fitness
         self.id = Cromosome.__STATIC_ID
         Cromosome.__STATIC_ID += 1
+        super().__init__()
     
     def __str__(self: object) -> str:
         return f'{self.id}'
@@ -36,14 +38,16 @@ class Cromosome:
 
     def update_value(self: object, value: float) -> None:
         self.value = value
-        self.binary = Cromosome.__CODER.encode(value)
+        self.binary = Cromosome.__CODER.encoder.encode(value)
         self.fitness = Cromosome.__FUNCTION(value)
-        print(f'Updated value for {self.id}')
+        if self.should_print:
+            print(f'Updated value for {self.id}')
     
     def update_binary(self: object, binary: str) -> None:
         self.binary = binary
-        value = Cromosome.__CODER.decode(binary)
+        value = Cromosome.__CODER.decoder.decode(binary)
         value = round(value, Cromosome.__CODER.precision)
         self.value = value
         self.fitness = Cromosome.__FUNCTION(self.value)
-        print(f'Updated binary for {self.id}')
+        if self.should_print:
+            print(f'Updated binary for {self.id}')
