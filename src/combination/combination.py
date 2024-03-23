@@ -3,7 +3,7 @@ from numpy import random
 from src.base_class import BaseClass
 import random
 
-class Combination(BaseClass):
+class Combinator(BaseClass):
     def __init__(
         self: object,
         population: list[Cromosome],

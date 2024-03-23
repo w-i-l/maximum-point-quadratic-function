@@ -4,8 +4,8 @@ sys.path.append(os.path.dirname(os.getcwd()))
 from src.cromosome import Cromosome
 from src.codification import coder
 from src.selection.selector import Selector
-from src.combination.combination import Combination
-from src.mutation.mutation import Mutation
+from src.combination.combination import Combinator
+from src.mutation.mutation import Mutator
 
 if __name__ == '__main__':
     values = [
@@ -43,8 +43,8 @@ if __name__ == '__main__':
     population = [Cromosome(values[i], binaries[i], fitnesses[i]) for i in range(len(values))]
 
     selector = Selector(population)
-    combinator = Combination(population, combination_rate)
-    mutator = Mutation(population, mutation_rate)
+    combinator = Combinator(population, combination_rate)
+    mutator = Mutator(population, mutation_rate)
 
     print('Initial population:')
     for c in population:

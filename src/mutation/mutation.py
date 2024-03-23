@@ -2,7 +2,7 @@ from src.cromosome import Cromosome
 from src.base_class import BaseClass
 from numpy import random
 
-class Mutation(BaseClass):
+class Mutator(BaseClass):
     def __init__(
         self: object,
         population: list[Cromosome],
