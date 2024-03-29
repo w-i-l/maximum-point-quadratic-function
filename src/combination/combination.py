@@ -29,7 +29,8 @@ class Combinator(BaseClass):
             print(f'Result: {new_c1} {new_c2}')
 
     def __get_cromosomes_for_combination(self: object) -> list[Cromosome]:
-        return [c for c in self.population if self.__should_combine()]
+        best_cromosome = self.__get_best_cromosome()
+        return [c for c in self.population if self.__should_combine() and c != best_cromosome]
     
     def __generate_random_number(self: object) -> float:
         return random.uniform(0, 1)
@@ -49,3 +50,6 @@ class Combinator(BaseClass):
             second = cromosomes.pop()
             result.append((first, second))
         return result
+
+    def __get_best_cromosome(self: object) -> Cromosome:
+        return max(self.population, key=lambda c: c.fitness)

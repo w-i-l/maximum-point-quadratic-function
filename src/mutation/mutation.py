@@ -24,7 +24,8 @@ class Mutator(BaseClass):
         return random.uniform(0, 1)
     
     def __should_mutate(self: object) -> bool:
-        return self.__generate_random_number() < self.mutation_rate
+        best_cromosome = self.__get_best_cromosome()
+        return self.__generate_random_number() < self.mutation_rate and self != best_cromosome
     
     def __mutate_cromozom(self: object, c: Cromosome) -> None:
         point = random.randint(0, len(c.binary) - 1)
@@ -33,3 +34,6 @@ class Mutator(BaseClass):
         c.update_binary(new_c)
         if self.should_print:
             print(f'Mutated {c.id} at point {point}')
+
+    def __get_best_cromosome(self: object) -> Cromosome:
+        return max(self.population, key=lambda c: c.fitness)

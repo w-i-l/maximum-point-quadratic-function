@@ -40,9 +40,18 @@ class Selector(BaseClass):
         return random.uniform(0, 1)
     
     def __get_index_of_interval(self: object, number: float) -> int:
-        for i in range(len(self.intervals) - 1):
-            if self.intervals[i] <= number < self.intervals[i + 1]:
-                return i
+        low = 0
+        high = len(self.intervals) - 1
+
+        while low <= high:
+            mid = (low + high) // 2
+            if self.intervals[mid] <= number < self.intervals[mid + 1]:
+                return mid
+            elif number < self.intervals[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+
         return -1
         
     def __select_cromozom(self: object) -> Cromosome:
