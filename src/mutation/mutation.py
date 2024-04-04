@@ -13,8 +13,10 @@ class Mutator(BaseClass):
         super().__init__()
 
     def mutate(self: object) -> list[Cromosome]:
+        best_cromosome = self.__get_best_cromosome()
+
         for c in self.population:
-            if self.__should_mutate():
+            if self.__should_mutate() and c != best_cromosome:
                 if self.should_print:
                     print(f'Mutating {c.id}')
                 self.__mutate_cromozom(c)
@@ -24,8 +26,7 @@ class Mutator(BaseClass):
         return random.uniform(0, 1)
     
     def __should_mutate(self: object) -> bool:
-        best_cromosome = self.__get_best_cromosome()
-        return self.__generate_random_number() < self.mutation_rate and self != best_cromosome
+        return self.__generate_random_number() < self.mutation_rate
     
     def __mutate_cromozom(self: object, c: Cromosome) -> None:
         point = random.randint(0, len(c.binary) - 1)

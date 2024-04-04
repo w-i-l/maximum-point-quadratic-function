@@ -6,17 +6,18 @@ from src.codification import coder
 from src.selection.selector import Selector
 from src.combination.combination import Combinator
 from src.mutation.mutation import Mutator
+from src.gui.GUI import GUI
 import random
 
 if __name__ == '__main__':
     population_size = 20
-    generations = 50
+    generations = 100
     lower_bound = -1
     upper_bound = 2
     precision = 6
     f = lambda x: -(x ** 2) + x + 2
     combination_rate = 0.25
-    mutation_rate = 0.01
+    mutation_rate = 0.05
 
     values = [round(random.uniform(lower_bound, upper_bound), precision) for _ in range(population_size)]
     coder = coder.Coder(lower_bound, upper_bound, precision)
@@ -64,8 +65,9 @@ if __name__ == '__main__':
     mutator.should_print = False
 
     print('\n\n\n')
-    for i in range(49):
+    for i in range(generations):
         selected = selector.select()
         population = combinator.combine()
         population = mutator.mutate()
         print(max([c.fitness for c in population]))
+
