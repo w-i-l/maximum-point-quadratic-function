@@ -66,6 +66,9 @@ class GUI:
           self.__display_population_listbox()
           self.__display_population_side_label()
           self.__display_menu()
+          self.__open_settings_window()
+     
+     def run(self):
           self.root.mainloop()
 
      ##################################### MENU SETTINGS #####################################
@@ -308,7 +311,6 @@ class GUI:
      def __go_to_generation_button_action(self):
           try:
                generation = askstring("Go to generation", "Enter the generation number:")
-               print(generation, type(generation))
                generation = int(generation)
                if generation < self.generations or generation > self.initial_generations:
                     showinfo("Invalid generation", f"Generation must be between {self.generations} and {self.initial_generations}")
