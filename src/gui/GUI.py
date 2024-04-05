@@ -1,8 +1,8 @@
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
 from tkinter.simpledialog import askstring
 from tkinter.messagebox import showinfo
 
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 import numpy as np  
 import random 
