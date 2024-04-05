@@ -50,7 +50,7 @@ pip3 install -r requirements.txt
 <p>For the genetic algorithm to work, the cromosomes must be codified in a way that the algorithm can understand. In this case, the cromosomes are represented as a list of <b>binary</b> values, where each value represents a bit of the <b>x</b> value. The number of bits is determined by the <code>precision</code> parameter.</p>
 <p>For a given <code>precision</code> the algorithm will need</p>
 
-$$ \lceil \log2((\text{upper\_bound} - \text{lower\_bound}) \times 10^{\text{precision}}) \rceil $$
+$$ \lceil \log2((\text{upper-bound} - \text{lower-bound}) \times 10^{\text{precision}}) \rceil $$
 
 <p>bits to represent the <b>x</b> value in binary.</p>
 <p>For a more information about encoding and decoding check this: <a href="https://cms.fmi.unibuc.ro/problem/genetici1">resource</a>.</p>
